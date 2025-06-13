@@ -19,9 +19,9 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: nginx:1.21
+          image: adamtravis/rollouts:blue
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 ---
 # ====================
 # ✅ GREEN Deployment
@@ -44,9 +44,9 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: nginx:1.25
+          image: adamtravis/rollouts:green
           ports:
-            - containerPort: 80
+            - containerPort: 8080
 ---
 # ====================
 # 🔁 Service (initially points to GREEN)
@@ -58,9 +58,9 @@ metadata:
 spec:
   selector:
     app: myapp
-    version: green  # ⬅️ এখানে switchable
+    version: blue  # ⬅️ এখানে switchable
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: 8080
   type: LoadBalancer
